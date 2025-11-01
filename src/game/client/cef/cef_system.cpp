@@ -272,7 +272,7 @@ bool CCefSystem::Init()
 	settings.no_sandbox = true;
 #endif
 	CefString(&settings.cache_path) = CefString("cache");
-	CefString(&settings.user_agent_product) = CefString(SF2_USER_AGENT);
+	CefString(&settings.user_agent_product) = CefString("SF2 CEF/0.4.0");
 	CefString(&settings.browser_subprocess_path) = CefString(browser_subprocess_path);
 
 	// Initialize CEF.
