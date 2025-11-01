@@ -1,0 +1,75 @@
+// Copyright (c) 2025 The Solo Fortress 2 Team, all rights reserved.
+// cef_subprocess.vpc, Solo Fortress 2's implementation of the Chromium Embedded Framework into the TF2 SDK. 
+// Based on Lambda Wars' Chromium Embedded Framework, modified to work on the latest CEF build.
+
+$Macro SRCDIR		".."
+
+$MacroRequired GAMENAME
+$Macro OUTBINDIR	"$SRCDIR\..\game\$GAMENAME\bin"
+
+$Macro OUTBINNAME		"cef_subprocess"
+
+$Include "$SRCDIR\vpc_scripts\source_exe_base.vpc"
+$Macro CEF_VERSION "141.0.11"
+
+$Configuration
+{
+    $Compiler
+    {
+        $AdditionalIncludeDirectories           "$BASE;$SRCDIR\thirdparty\cef-$CEF_VERSION;$SRCDIR\thirdparty\cef-$CEF_VERSION\include"
+		$DisableSpecificWarnings		"$BASE;4267;4100;4005"
+		$DisableSpecificWarnings		"$BASE;4530" [$WINDOWS]
+    }
+	$Linker
+	{
+		$AdditionalDependencies			"$BASE user32.lib imm32.lib"	[$WINDOWS]
+	}
+}
+
+$Configuration	"Debug"
+{
+	$General
+	{
+		$OutputDirectory			".\Debug_$OUTBINNAME" [$WINDOWS]
+		$IntermediateDirectory		".\Debug_$OUTBINNAME" [$WINDOWS]
+	}
+}
+
+$Configuration	"Release"
+{
+	$General
+	{
+		// Windows generator doesn't sandbox these directories per configuration but others do :-/
+		$OutputDirectory			".\Release_$OUTBINNAME" [$WINDOWS]
+		$IntermediateDirectory		".\Release_$OUTBINNAME" [$WINDOWS]
+	}
+}
+
+$Configuration
+{
+	$Compiler
+	{
+		$PreprocessorDefinitions	"$BASE;SF2_CEF"
+	}
+}
+
+$Project
+{
+    $Folder "Link Libraries"
+    {
+        $ImpLib "$SRCDIR\thirdparty\cef-$CEF_VERSION\Release\libcef"
+        $ImpLib "$SRCDIR\thirdparty\cef-$CEF_VERSION\lib\libcef_dll_wrapper"
+    }
+	
+    $Folder "Source Files"
+    {
+		$File	"cef_cxx20_stubs.h"
+        $File   "client_app.cpp"
+        $File   "client_app.h"
+        $File   "render_browser.cpp"
+        $File   "render_browser.h"
+        $File   "render_browser_helpers.cpp"
+        $File   "render_browser_helpers.h"
+        $File   "main.cpp"
+    }
+}

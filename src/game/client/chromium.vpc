@@ -1,0 +1,52 @@
+// Copyright (c) 2025 The Solo Fortress 2 Team, all rights reserved.
+// chromium.vpc, Solo Fortress 2's implementation of the Chromium Embedded Framework into the TF2 SDK. 
+// Based on Lambda Wars' Chromium Embedded Framework, modified to work on the latest CEF build.
+
+$Macro CEF_VERSION "141.0.11"
+
+$Configuration
+{
+    $Compiler
+    {
+        $AdditionalIncludeDirectories           "$BASE;$SRCDIR\thirdparty\cef-$CEF_VERSION;$SRCDIR\thirdparty\cef-$CEF_VERSION\include"
+    }
+	$Linker
+	{
+		$AdditionalDependencies			"$BASE user32.lib imm32.lib"	[$WINDOWS]
+	}
+}
+
+$Project
+{
+    $Folder "Link Libraries"
+    {
+        $ImpLib "$SRCDIR\thirdparty\cef-$CEF_VERSION\Release\libcef" // required
+        $ImpLib "$SRCDIR\thirdparty\cef-$CEF_VERSION\lib\libcef_dll_wrapper"
+    }
+
+    $Folder "Source Files"
+    {
+        $Folder "Chromium Embedded Framework"
+        {
+			$File	"cef/cef_cxx20_stubs.h"
+			$File	"cef/cef_avatar_handler.cpp"
+			$File	"cef/cef_avatar_handler.h"
+			$File	"cef/cef_browser.cpp"
+			$File	"cef/cef_browser.h"
+			$File	"cef/cef_js.cpp"
+			$File	"cef/cef_js.h"
+			$File	"cef/cef_local_handler.cpp"
+			$File	"cef/cef_local_handler.h"
+			$File	"cef/cef_os_renderer.cpp"
+			$File	"cef/cef_os_renderer.h"
+			$File	"cef/cef_system.cpp"
+			$File	"cef/cef_system.h"
+			$File	"cef/cef_tex_gen.cpp"
+			$File	"cef/cef_tex_gen.h"
+			$File	"cef/cef_vgui_panel.cpp"
+			$File	"cef/cef_vgui_panel.h"
+			$File	"cef/cef_vtf_handler.cpp"
+			$File	"cef/cef_vtf_handler.h"
+        }
+    }
+}

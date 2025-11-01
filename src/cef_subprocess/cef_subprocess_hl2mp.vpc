@@ -1,0 +1,11 @@
+// Copyright (c) 2025 The Solo Fortress 2 Team, all rights reserved.
+// cef_subprocess_hl2mp.vpc, Solo Fortress 2's implementation of the Chromium Embedded Framework into the TF2 SDK. 
+// Based on Lambda Wars' Chromium Embedded Framework, modified to work on the latest CEF build.
+
+$Macro GAMENAME "hl2mp"
+
+$Include "cef_subprocess.vpc"
+
+$Project "Chromium Sub-process (HL2MP)"
+{
+}
